@@ -1,7 +1,7 @@
 package PacketShark;
 
-public class TopParser {
-    public TopParser() {
+public class TopLevelParser {
+    public TopLevelParser() {
 
     }
 
@@ -46,6 +46,11 @@ public class TopParser {
                         }
                     }
                 }
+            }
+            else if (eth.packetType == 2054) {
+                ArpPacket arp = new ArpPacket(p);
+                p.nextLevel = arp;
+                p = p.nextLevel;
             }
         return p;
         }
