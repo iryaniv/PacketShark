@@ -36,6 +36,15 @@ public class TopParser {
                     UdpPacket udp = new UdpPacket(ip);
                     p.nextLevel = udp;
                     p = p.nextLevel;
+                    if (udp.destinationPort == 53) {
+                        try {
+                            DnsRequestOverUdpPacket dns = new DnsRequestOverUdpPacket(udp);
+                            p.nextLevel = dns;
+                            p = p.nextLevel;
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
                 }
             }
         return p;
